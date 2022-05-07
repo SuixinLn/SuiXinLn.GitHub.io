@@ -1,63 +1,222 @@
-进入主题：
-
-阿里云VPN搭建文字教程
-
-阿里云轻量服务器购买地址：https://www.aliyun.com/product/swas?spm=5176.19720258.J_3207526240.35.5e052c4apiZs5s
-
-支持的操作系统 （CentOS 7+、Ubuntu 16+、Debian 8+），操作流程是一样的。在第3步申请SSL证书的时候，请输入对应系统的命令，其他的是一样的。
-
-服务器购买后，搜索DNS加速，复制服务器的公网IP地址，与域名进行解析。
-
-如果外网网页打开速度慢，无法下载应用等问题，可联系随心Ln索要免费临时节点使用。
-
-随心Ln联系方式 - WeChat：suixinln Email：landxin@qq.com
-
-1、安装finalshell，下载安装连接：https://www.hostbuf.com/
-
-2、开启防火墙
-iptables -P INPUT ACCEPT
-iptables -P FORWARD ACCEPT
-iptables -P OUTPUT ACCEPT
-iptables -F
-apt-get purge netfilter-persistent
-reboot 重新开始
-
-3、申请SSL证书
-apt update -y # Debian/Ubuntu 命令
-apt install -y curl # Debian/Ubuntu 命令
-apt install -y socat # Debian/Ubuntu 命令
-yum update -y #CentOS 命令
-yum install -y curl #CentOS 命令
-yum install -y socat #CentOS 命令
-curl https://get.acme.sh | sh
-
-~/.acme.sh/acme.sh --register-account -m landxin@qq.com
-#请换上自己的真实邮箱地址
-
-~/.acme.sh/acme.sh --issue -d www.baidu.com --standalone #将”www.baidu.com” 更换为你自己绑定的域名地址
-改变你的解析域
-
-~/.acme.sh/acme.sh --installcert -d www.baidu.com --key-file /root/private.key --fullchain-file /root/cert.crt
-#将”www.baidu.com” 更换为你自己绑定的域名地址
-
-更换你的解析域名，此步完成后会在VPS root目录下
-看到证书公钥/root/cert.crt及验证文件/root/private.key
-
-
-4、安装X-ui面板
-bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
-
-
-
-5、安装最新版V2ray，下载链接：
-https://github.com/2dust/v2rayN/releases
-
-
-
-6) 如果打不开v2rayN.exe,可以安装.NET Framework 4.8，下载链接：
-https://docs.microsoft.com/zh-cn/dotnet/framework/install/guide-for-developers
-
-
-
-如果需要视频教程的，请赞助进群，请到群内下载教程视频。
-赞助联系方式：WeChat：Suixinln
+<p style="text-align:center;">
+	<span style="font-size:16px;"><strong><br />
+</strong></span> 
+</p>
+<p style="text-align:center;">
+	<span style="font-size:16px;"><strong>小白入门级阿里云VPN搭建教程-文字版</strong></span>
+</p>
+<hr />
+<p>
+	<br />
+</p>
+<p style="text-align:center;">
+	<span style="font-size:14px;">阿里云轻量服务器购买地址：</span>
+</p>
+<p style="text-align:center;">
+	<span style="font-size:14px;"><a href="https://www.aliyun.com/product/swas?spm=5176.19720258.J_3207526240.35.5e052c4apiZs5s" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;https://www.aliyun.com/product/swas?spm=5176.19720258.J_3207526240.35.5e052c4apiZs5s</a></span> 
+</p>
+<p style="text-align:center;">
+	<span style="font-size:14px;">支持的操作系统 （CentOS 7+、Ubuntu 16+、Debian 8+），操作流程是一样的。在第3步申请SSL证书的时候，请输入对应系统的命令，其他的是一样的。</span>
+</p>
+<p style="text-align:center;">
+	<span style="font-size:14px;">服务器购买后，搜索DNS加速，复制服务器的公网IP地址，与域名进行解析。</span>
+</p>
+<span style="font-size:14px;color:#E53333;"> 
+<div style="text-align:center;">
+	如果外网网页打开速度慢，无法下载应用等问题，可联系随心Ln索要免费临时节点使用。
+</div>
+</span> 
+<div style="text-align:center;">
+	<span style="color:#E53333;font-size:14px;">随心Ln联系方式&nbsp; -&nbsp;</span><strong> WeChat：suixinln&nbsp; &nbsp;Email：landxin@qq.com&nbsp;&nbsp;</strong> 
+</div>
+<p>
+	<br />
+</p>
+<span style="font-size:14px;"> 
+<p style="text-align:center;">
+	&nbsp; &nbsp; 1)&nbsp;安装finalshell，下载安装连接：
+</p>
+<p style="text-align:center;">
+	<a href="https://www.hostbuf.com/" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;https://www.hostbuf.com/</a>
+</p>
+<p style="text-align:center;">
+	<br />
+</p>
+</span> 
+<div style="text-align:center;">
+	<span style="font-size:14px;">2)&nbsp;开启防火墙</span>
+</div>
+<span style="font-size:14px;color:#009900;"> 
+<div style="text-align:center;">
+	&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iptables -P INPUT ACCEPT
+</div>
+</span> 
+<div style="text-align:center;">
+	<span style="color:#009900;font-size:14px;">&nbsp; &nbsp;&nbsp;</span><span style="color:#009900;font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#009900;font-size:14px;">iptables -P FORWARD ACCEPT</span> 
+</div>
+<span style="font-size:14px;color:#009900;"> 
+<div style="text-align:center;">
+	&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iptables -P OUTPUT ACCEPT
+</div>
+</span> 
+<div style="text-align:center;">
+	<span style="color:#009900;font-size:14px;">&nbsp; &nbsp;&nbsp;</span><span style="color:#009900;font-size:14px;">iptables -F</span> 
+</div>
+<span style="font-size:14px;color:#009900;"> 
+<div style="text-align:center;">
+	&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;apt-get purge netfilter-persistent
+</div>
+</span> 
+<div style="text-align:center;">
+	<span style="font-size:14px;color:#009900;">&nbsp;reboot </span><span style="font-size:14px;">重新开始</span>
+</div>
+<div style="text-align:center;">
+	<br />
+</div>
+<div style="text-align:center;">
+	<br />
+</div>
+<span style="font-size:14px;"> 
+<div style="text-align:center;">
+	&nbsp; &nbsp; 3)&nbsp;申请SSL证书
+</div>
+</span> 
+<div style="text-align:center;">
+	<br />
+</div>
+<span style="font-size:14px;"> 
+<div style="text-align:center;">
+	<span style="color:#009900;">&nbsp; &nbsp; &nbsp; &nbsp; apt update -y&nbsp; &nbsp; &nbsp; &nbsp;</span># Debian/Ubuntu 命令
+</div>
+</span> 
+<div style="text-align:center;">
+	<span style="font-size:14px;color:#009900;">&nbsp; &nbsp; &nbsp; &nbsp; apt install -y curl&nbsp;</span><span style="font-size:14px;"> &nbsp;# Debian/Ubuntu 命令</span> 
+</div>
+<span style="font-size:14px;"> 
+<div style="text-align:center;">
+	<span style="color:#009900;">&nbsp; &nbsp; &nbsp; &nbsp; apt install -y socat</span>&nbsp; # Debian/Ubuntu 命令
+</div>
+</span> 
+<div style="text-align:center;">
+	<span style="font-size:14px;color:#009900;">&nbsp; &nbsp; &nbsp; &nbsp; yum update -y&nbsp; </span><span style="font-size:14px;">&nbsp; &nbsp; &nbsp; #CentOS 命令</span> 
+</div>
+<span style="font-size:14px;"> 
+<div style="text-align:center;">
+	<span style="color:#009900;">&nbsp; &nbsp; &nbsp; &nbsp; yum install -y curl&nbsp;</span> &nbsp; #CentOS 命令
+</div>
+</span> 
+<div style="text-align:center;">
+	<span style="font-size:14px;color:#009900;">&nbsp; &nbsp; &nbsp; &nbsp; yum install -y socat</span><span style="font-size:14px;">&nbsp; &nbsp;#CentOS 命令</span> 
+</div>
+<div style="text-align:center;">
+	<br />
+</div>
+<p style="text-align:center;">
+	<span style="font-size:14px;color:#009900;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;curl https://get.acme.sh | sh</span> 
+</p>
+<p style="text-align:center;">
+	<span style="font-size:14px;color:#009900;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~/.acme.sh/acme.sh --register-account -m landxin@qq.com</span>
+</p>
+<p style="text-align:center;">
+	<span style="color:#4C33E5;font-size:14px;">&nbsp;#将邮箱地址更改为你自己的</span>
+</p>
+<div style="text-align:center;">
+	<br />
+</div>
+<span style="font-size:14px;color:#009900;"> 
+<div style="text-align:center;">
+	&nbsp; &nbsp; &nbsp; &nbsp; ~/.acme.sh/acme.sh --issue -d www.baidu.com --standalone<span style="font-size:12px;"> </span><span style="color:#003399;">#将”www.baidu.com” 更换为你自己绑定的域名地址</span> 
+</div>
+</span> 
+<div style="text-align:center;">
+	<span style="font-size:14px;">#改变你的解析域</span>
+</div>
+<div style="text-align:center;">
+	<br />
+</div>
+<div style="text-align:center;">
+	<br />
+</div>
+<div style="text-align:center;">
+	<br />
+</div>
+<span style="font-size:14px;color:#009900;"> 
+<div style="text-align:center;">
+	&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~/.acme.sh/acme.sh --installcert -d www.baidu.com --key-file /root/private.key --fullchain-file /root/cert.crt
+</div>
+</span> 
+<div style="text-align:center;">
+	<br />
+</div>
+<span style="font-size:14px;color:#003399;"> 
+<div style="text-align:center;">
+	&nbsp; &nbsp; #将”www.baidu.com” 更换为你自己绑定的域名地址
+</div>
+</span> 
+<div style="text-align:center;">
+	<br />
+</div>
+<span style="font-size:14px;"> 
+<div style="text-align:center;">
+	&nbsp; &nbsp; #更换你的解析域名，此步完成后会在VPS root目录下；看到证书公钥/root/cert.crt及验证文件/root/private.key
+</div>
+</span> 
+<div style="text-align:center;">
+	<br />
+</div>
+<div style="text-align:center;">
+	<br />
+</div>
+<span style="font-size:14px;"> 
+<div style="text-align:center;">
+	&nbsp; &nbsp; 4)&nbsp;安装X-ui面板
+</div>
+</span> 
+<div style="text-align:center;">
+	<br />
+</div>
+<span style="font-size:14px;color:#009900;"> 
+<div style="text-align:center;">
+	&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bash &lt;(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
+</div>
+</span> 
+<div style="text-align:center;">
+	<br />
+</div>
+<div style="text-align:center;">
+	<br />
+</div>
+<span style="font-size:14px;"> 
+<div style="text-align:center;">
+	&nbsp; &nbsp; 5)&nbsp;安装最新版V2ray，下载链接：
+</div>
+</span> 
+<div style="text-align:center;">
+	<a href="https://github.com/2dust/v2rayN/releases" target="_blank">&nbsp; &nbsp; https://github.com/2dust/v2rayN/releases</a> 
+</div>
+<div style="text-align:center;">
+	<br />
+</div>
+<span style="font-size:14px;"> 
+<div style="text-align:center;">
+	&nbsp; &nbsp; 6)<span style="font-size:12px;"> </span>如果打不开v2rayN.exe,可以安装.NET Framework 4.8，下载链接：
+</div>
+</span> 
+<div style="text-align:center;">
+	<a href="https://docs.microsoft.com/zh-cn/dotnet/framework/install/guide-for-developers" target="_blank">&nbsp; &nbsp; https://docs.microsoft.com/zh-cn/dotnet/framework/install/guide-for-developers</a> 
+</div>
+<p style="text-align:center;">
+	<br />
+</p>
+<p style="text-align:center;">
+	<br />
+</p>
+<p style="text-align:right;">
+	发布日期：2022-5-7&nbsp;&nbsp;&nbsp;&nbsp;发布者：SuiXinLn&nbsp;
+</p>
+<p style="text-align:center;">
+	<br />
+</p>
+<p style="text-align:center;">
+	<br />
+</p>
