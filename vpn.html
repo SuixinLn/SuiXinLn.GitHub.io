@@ -1,492 +1,63 @@
-# SuiXinLn.GitHub.io
+进入主题：
+
+阿里云VPN搭建文字教程
+
+阿里云轻量服务器购买地址：https://www.aliyun.com/product/swas?spm=5176.19720258.J_3207526240.35.5e052c4apiZs5s
+
+支持的操作系统 （CentOS 7+、Ubuntu 16+、Debian 8+），操作流程是一样的。在第3步申请SSL证书的时候，请输入对应系统的命令，其他的是一样的。
+
+服务器购买后，搜索DNS加速，复制服务器的公网IP地址，与域名进行解析。
+
+如果外网网页打开速度慢，无法下载应用等问题，可联系随心Ln索要免费临时节点使用。
+
+随心Ln联系方式 - WeChat：suixinln Email：landxin@qq.com
+
+1、安装finalshell，下载安装连接：https://www.hostbuf.com/
+
+2、开启防火墙
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -F
+apt-get purge netfilter-persistent
+reboot 重新开始
+
+3、申请SSL证书
+apt update -y # Debian/Ubuntu 命令
+apt install -y curl # Debian/Ubuntu 命令
+apt install -y socat # Debian/Ubuntu 命令
+yum update -y #CentOS 命令
+yum install -y curl #CentOS 命令
+yum install -y socat #CentOS 命令
+curl https://get.acme.sh | sh
+
+~/.acme.sh/acme.sh --register-account -m landxin@qq.com
+#请换上自己的真实邮箱地址
+
+~/.acme.sh/acme.sh --issue -d www.baidu.com --standalone #将”www.baidu.com” 更换为你自己绑定的域名地址
+改变你的解析域
+
+~/.acme.sh/acme.sh --installcert -d www.baidu.com --key-file /root/private.key --fullchain-file /root/cert.crt
+#将”www.baidu.com” 更换为你自己绑定的域名地址
+
+更换你的解析域名，此步完成后会在VPS root目录下
+看到证书公钥/root/cert.crt及验证文件/root/private.key
+
+
+4、安装X-ui面板
+bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
 
 
 
-<table class="highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file" style="color:#24292F;font-family:-apple-system, BlinkMacSystemFont, &quot;font-size:14px;background-color:#FFFFFF;">
-	<tbody>
-		<tr>
-			<td id="LC5" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<p>
-					进入主题：<br />
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td id="L6" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC6" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L7" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC7" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<p>
-					阿里云VPN搭建文字教程
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td id="L8" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC8" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L9" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC9" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<p>
-					阿里云轻量服务器购买地址：<a href="https://www.aliyun.com/product/swas?spm=5176.19720258.J_3207526240.35.5e052c4apiZs5s" target="_blank">https://www.aliyun.com/product/swas?spm=5176.19720258.J_3207526240.35.5e052c4apiZs5s</a>
-				</p>
-				<p>
-					<br />
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td id="L10" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC10" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L11" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC11" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<p>
-					支持的操作系统 （CentOS 7+、Ubuntu 16+、Debian 8+），操作流程是一样的。在第3步申请SSL证书的时候，请输入对应系统的命令，其他的是一样的。
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td id="L12" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC12" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L13" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC13" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<p>
-					服务器购买后，搜索DNS加速，复制服务器的公网IP地址，与域名进行解析。
-				</p>
-				<p>
-					<br />
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td id="L14" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC14" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L15" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC15" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				如果外网网页打开速度慢，无法下载应用等问题，可联系随心Ln索要免费临时节点使用。
-			</td>
-		</tr>
-		<tr>
-			<td id="L16" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC16" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				随心Ln联系方式  -  WeChat：suixinln   Email：landxin@qq.com<br />
-<br />
-			</td>
-		</tr>
-		<tr>
-			<td id="L17" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC17" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L18" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC18" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L19" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC19" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				1、安装finalshell，下载安装连接：<a href="https://www.hostbuf.com/" target="_blank">https://www.hostbuf.com/</a><br />
-<br />
-			</td>
-		</tr>
-		<tr>
-			<td id="L20" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC20" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L21" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC21" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				2、开启防火墙
-			</td>
-		</tr>
-		<tr>
-			<td id="L22" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC22" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L23" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC23" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">iptables -P INPUT ACCEPT</span>
-			</td>
-		</tr>
-		<tr>
-			<td id="L24" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC24" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">iptables -P FORWARD ACCEPT</span>
-			</td>
-		</tr>
-		<tr>
-			<td id="L25" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC25" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">iptables -P OUTPUT ACCEPT</span>
-			</td>
-		</tr>
-		<tr>
-			<td id="L26" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC26" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">iptables -F</span>
-			</td>
-		</tr>
-		<tr>
-			<td id="L27" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC27" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">apt-get purge netfilter-persistent</span>
-			</td>
-		</tr>
-		<tr>
-			<td id="L28" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC28" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L29" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC29" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">reboot</span> 重新开始
-			</td>
-		</tr>
-		<tr>
-			<td id="L30" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC30" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L31" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC31" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L32" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC32" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				3、申请SSL证书
-			</td>
-		</tr>
-		<tr>
-			<td id="L33" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC33" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L34" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC34" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">apt update -y</span> # Debian/Ubuntu 命令
-			</td>
-		</tr>
-		<tr>
-			<td id="L35" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC35" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">apt install </span><span style="color:#60D978;">-y curl </span> # Debian/Ubuntu 命令
-			</td>
-		</tr>
-		<tr>
-			<td id="L36" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC36" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">apt install </span><span style="color:#60D978;">-y socat </span> # Debian/Ubuntu 命令
-			</td>
-		</tr>
-		<tr>
-			<td id="L37" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC37" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">yum update -y</span> #CentOS 命令
-			</td>
-		</tr>
-		<tr>
-			<td id="L38" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC38" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">yum install -y curl</span> #CentOS 命令
-			</td>
-		</tr>
-		<tr>
-			<td id="L39" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC39" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">yum install -y socat</span> #CentOS 命令
-			</td>
-		</tr>
-		<tr>
-			<td id="L40" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC40" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L41" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC41" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">curl https://get.acme.sh | sh</span>
-			</td>
-		</tr>
-		<tr>
-			<td id="L42" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC42" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">~/.acme.sh/acme.sh --register-account -m<span style="color:#00D5FF;"> landxin@qq.com</span></span>
-			</td>
-		</tr>
-		<tr>
-			<td id="L43" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC43" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L44" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC44" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				#请换上自己的真实邮箱地址
-			</td>
-		</tr>
-		<tr>
-			<td id="L45" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC45" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L46" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC46" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">~/.acme.sh/acme.sh --issue -d <span style="color:#00D5FF;">www.baidu.com</span> --standalone</span> #将”www.baidu.com” 更换为你自己绑定的域名地址
-			</td>
-		</tr>
-		<tr>
-			<td id="L47" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC47" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L48" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC48" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				改变你的解析域
-			</td>
-		</tr>
-		<tr>
-			<td id="L49" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC49" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L50" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC50" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L51" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC51" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L52" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC52" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<span style="color:#60D978;">~/.acme.sh/acme.sh --installcert -d <span style="color:#00D5FF;">www.baidu.com</span> --key-file /root/private.key --fullchain-file /root/cert.crt</span>
-			</td>
-		</tr>
-		<tr>
-			<td id="L53" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC53" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L54" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC54" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				#将”www.baidu.com” 更换为你自己绑定的域名地址
-			</td>
-		</tr>
-		<tr>
-			<td id="L55" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC55" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L56" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC56" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				更换你的解析域名，此步完成后会在VPS root目录下
-			</td>
-		</tr>
-		<tr>
-			<td id="L57" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC57" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<p>
-					看到证书公钥/root/cert.crt及验证文件/root/private.key
-				</p>
-				<p>
-					<br />
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td id="L58" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC58" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L59" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC59" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L60" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC60" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				4、安装X-ui面板
-			</td>
-		</tr>
-		<tr>
-			<td id="L61" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC61" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L62" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC62" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<p>
-					<span style="color:#60D978;">bash </span><span class="pl-kos" style="color:#60D978;">&lt;</span><span style="color:#60D978;">(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)</span>
-				</p>
-				<p>
-					<span style="color:#60D978;"><br />
-</span>
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td id="L63" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC63" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L64" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC64" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L65" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC65" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				5、安装最新版V2ray，下载链接：
-			</td>
-		</tr>
-		<tr>
-			<td id="L66" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC66" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<p>
-					<a href="https://github.com/2dust/v2rayN/releases" target="_blank">https://github.com/2dust/v2rayN/releases</a>
-				</p>
-				<p>
-					<br />
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td id="L67" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC67" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L68" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC68" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				6)	如果打不开v2rayN.exe,可以安装.NET Framework 4.8，下载链接：
-			</td>
-		</tr>
-		<tr>
-			<td id="L69" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC69" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				<p>
-					<a href="https://docs.microsoft.com/zh-cn/dotnet/framework/install/guide-for-developers" target="_blank">https://docs.microsoft.com/zh-cn/dotnet/framework/install/guide-for-developers</a>
-				</p>
-				<p>
-					<br />
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td id="L70" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC70" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-			</td>
-		</tr>
-		<tr>
-			<td id="L71" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC71" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				如果需要视频教程的，请赞助进群，请到群内下载教程视频。
-			</td>
-		</tr>
-		<tr>
-			<td id="L72" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" style="font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-subtle);text-align:right;vertical-align:top;">
-			</td>
-			<td id="LC72" class="blob-code blob-code-inner js-file-line" style="vertical-align:top;font-family:ui-monospace, SFMono-Regular, &quot;color:var(--color-fg-default);">
-				赞助联系方式：WeChat：Suixinln
-			</td>
-		</tr>
-	</tbody>
-</table>
+5、安装最新版V2ray，下载链接：
+https://github.com/2dust/v2rayN/releases
+
+
+
+6) 如果打不开v2rayN.exe,可以安装.NET Framework 4.8，下载链接：
+https://docs.microsoft.com/zh-cn/dotnet/framework/install/guide-for-developers
+
+
+
+如果需要视频教程的，请赞助进群，请到群内下载教程视频。
+赞助联系方式：WeChat：Suixinln
